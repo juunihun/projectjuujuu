@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+:root {
+  /* Updated Palette: Cream & Navy */
+  --color-1: #FFF7E6;
+  /* Lightest (Cream) - Background */
+  --color-2: #E6DCC8;
+  /* Medium (Beige) - Secondary/Accent */
+  --color-3: #102E4A;
+  /* Dark (Navy) - Primary Brand */
+  --color-4: #071521;
+  /* Darkest (Deep Navy/Black) - Text/Contrast */
+
+  --background: #FFF7E6;
+  --foreground: #071521;
+  /* Darkest Text */
+  --primary: #102E4A;
+  /* Brand Navy (30%) */
+  --primary-foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-brand-light: var(--color-1);
+  --color-brand-medium: var(--color-2);
+  --color-brand-dark: var(--color-3);
+  --color-brand-navy: var(--color-4);
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-md border-b border-brand-light/30 shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-brand-dark hover:bg-brand-navy text-white transition-colors duration-200;
+  }
+}
