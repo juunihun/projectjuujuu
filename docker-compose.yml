@@ -9,6 +9,8 @@ services:
     restart: always
     env_file:
       - .env
+    environment:
+      - DB_HOST=db
     networks:
       - juujuu_network
     depends_on:
