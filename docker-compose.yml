@@ -9,8 +9,6 @@ services:
     restart: always
     env_file:
       - .env
-    environment:
-      - DB_HOST=db # override localhost from .env
     networks:
       - juujuu_network
     depends_on:

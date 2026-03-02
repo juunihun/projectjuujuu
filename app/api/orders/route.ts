@@ -113,11 +113,7 @@ export async function POST(request: Request) {
                 [user_id, 'Order Successful', `Your order for ${items.length} items has been placed via ${payment_method || 'Bank Transfer'}.`, '/profile?tab=purchases', 'order_update']
             );
 
-            // Log Activity - Order Placed
-            await connection.execute(
-                'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
-                [user_id, 'Order Placed', `Order placed with ${orderIds.length} sub-orders. Method: ${payment_method}. Status: ${paymentStatus}.`]
-            );
+            // Removed activity log insertion since activity_logs table does not exist
 
             await connection.commit();
             return NextResponse.json({ success: true, orderIds });
