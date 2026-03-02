@@ -43,8 +43,6 @@ services:
     restart: always
     environment:
       PMA_HOST: db
-      PMA_USER: ${DB_USER:-root}
-      PMA_PASSWORD: ${DB_PASSWORD:-root}
     ports:
       - "8080:80"
     networks:
