@@ -22,7 +22,11 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
         }
 
-        // Removed activity log insertion since activity_logs table does not exist
+        // Log the activity
+        await pool.execute(
+            'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
+            [user.id, 'Sign In', 'User logged into the system']
+        );
 
         // Return user info (excluding password)
         return NextResponse.json({

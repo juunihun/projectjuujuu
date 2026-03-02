@@ -26,7 +26,7 @@ function ProfileContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [activeTab, setActiveTab] = useState("");
-    const [activityLogs, setActivityLogs] = useState([]);
+    const [activityLogs, setActivityLogs] = useState<any[]>([]);
     const [activeAnnouncement, setActiveAnnouncement] = useState<{ message: string; type: string } | null>(null);
 
     // Seller - Add Product Form State
@@ -91,7 +91,12 @@ function ProfileContent() {
         try {
             const res = await fetch('/api/activity');
             const data = await res.json();
-            setActivityLogs(data);
+            if (Array.isArray(data)) {
+                setActivityLogs(data);
+            } else {
+                console.warn('Activity logs returned non-array:', data);
+                setActivityLogs([]);
+            }
         } catch (error) {
             console.error('Failed to fetch activity logs', error);
         }
