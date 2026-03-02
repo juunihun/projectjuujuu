@@ -11,6 +11,9 @@ services:
       - .env
     environment:
       - DB_HOST=db
+      - DB_USER=${DB_USER:-root}
+      - DB_PASSWORD=${DB_PASSWORD:-root}
+      - DB_NAME=${DB_NAME:-juu_juu_shop}
     networks:
       - juujuu_network
     depends_on:
