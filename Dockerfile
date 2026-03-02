@@ -21,10 +21,6 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-# Accept Stripe key as a build argument so it's baked into the client-side bundle
-ARG NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-ENV NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=$NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-
 RUN npm run build
 
 # Production image, copy all the files and run next

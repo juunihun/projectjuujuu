@@ -5,15 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
     container_name: juujuu_app
     restart: always
     env_file:
       - .env
     environment:
-      # Override DB_HOST from .env (which might be localhost) to point to the db container
-      - DB_HOST=db
+      - DB_HOST=db # override localhost from .env
     networks:
       - juujuu_network
     depends_on:
@@ -24,11 +21,10 @@ services:
     image: mysql:8.0
     container_name: juujuu_db
     restart: always
-    env_file:
-      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
       MYSQL_DATABASE: ${DB_NAME:-juu_juu_shop}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - "3306:3306"
     volumes:
@@ -47,8 +43,8 @@ services:
     restart: always
     environment:
       PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: ${DB_PASSWORD:-secret}
+      PMA_USER: ${DB_USER:-root}
+      PMA_PASSWORD: ${DB_PASSWORD:-root}
     ports:
       - "8080:80"
     networks:
