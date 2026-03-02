@@ -29,7 +29,8 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+      - ./scripts/seed.sql:/docker-entrypoint-initdb.d/02_seed.sql
     networks:
       - juujuu_network
     healthcheck:
