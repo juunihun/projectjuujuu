@@ -10,10 +10,9 @@ import { Plus, Edit, Trash2, Package, ArrowLeft } from "lucide-react";
 export default function AdminPage() {
     const { products, orders, removeProduct } = useStore();
     const router = useRouter();
-    const [activeTab, setActiveTab] = useState<"products" | "orders" | "sellers" | "banners" | "activity" | "announcements">("products");
+    const [activeTab, setActiveTab] = useState<"products" | "orders" | "sellers" | "banners" | "announcements">("products");
     const [sellers, setSellers] = useState<any[]>([]);
     const [banners, setBanners] = useState<any[]>([]);
-    const [activityLogs, setActivityLogs] = useState<any[]>([]);
 
     // Announcement State
     const [announcementMsg, setAnnouncementMsg] = useState("");
@@ -28,8 +27,6 @@ export default function AdminPage() {
             fetch('/api/users?role=seller').then(res => res.json()).then(data => setSellers(data));
         } else if (activeTab === "banners") {
             fetchBanners();
-        } else if (activeTab === "activity") {
-            fetch('/api/activity').then(res => res.json()).then(data => setActivityLogs(data));
         } else if (activeTab === "announcements") {
             fetch('/api/announcements').then(res => res.json()).then(data => {
                 if (data) {
@@ -127,7 +124,6 @@ export default function AdminPage() {
                         { id: "sellers", label: "Sellers" },
                         { id: "orders", label: `Orders (${orders.length})` },
                         { id: "banners", label: "Banners" },
-                        { id: "activity", label: "Activity Log" },
                         { id: "announcements", label: "Announcements" }
                     ].map(tab => (
                         <button
@@ -309,36 +305,6 @@ export default function AdminPage() {
                                     {banners.length === 0 && <tr><td colSpan={4} className="p-8 text-center text-gray-500">No banners found.</td></tr>}
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                )}
-
-                {activeTab === "activity" && (
-                    <div className="space-y-4">
-                        <h2 className="font-bold text-lg mb-2">Activity Log (Recent 50)</h2>
-                        <div className="bg-white rounded-sm shadow-sm overflow-hidden">
-                            <div className="divide-y">
-                                {activityLogs.map((log: any) => (
-                                    <div key={log.id} className="p-4 hover:bg-gray-50 transition-colors flex gap-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <span className={`px-2 py-0.5 rounded text-xs font-bold uppercase
-                                                    ${log.action === 'Sign In' ? 'bg-blue-100 text-blue-800' :
-                                                        log.action === 'Order Placed' ? 'bg-green-100 text-green-800' :
-                                                            'bg-gray-100 text-gray-800'}`}>
-                                                    {log.action}
-                                                </span>
-                                                <span className="text-sm font-bold text-gray-800">{log.user_name} <span className="text-gray-400 font-normal">({log.user_role})</span></span>
-                                            </div>
-                                            <p className="text-sm text-gray-600">{log.details}</p>
-                                        </div>
-                                        <div className="text-xs text-gray-400 whitespace-nowrap">
-                                            {new Date(log.created_at).toLocaleString()}
-                                        </div>
-                                    </div>
-                                ))}
-                                {activityLogs.length === 0 && <div className="p-8 text-center text-gray-500">No activity recorded yet.</div>}
-                            </div>
                         </div>
                     </div>
                 )}
