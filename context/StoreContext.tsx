@@ -418,6 +418,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     const logout = () => {
         setUser(null);
         localStorage.removeItem("juujuu-user");
+        window.location.href = '/';
     };
 
     return (

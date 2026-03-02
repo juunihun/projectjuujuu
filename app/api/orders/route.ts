@@ -114,10 +114,29 @@ export async function POST(request: Request) {
             );
 
             // Log the activity
-            await connection.execute(
-                'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
-                [user_id, 'Order Placed', `Placed an order for ${items.length} items (Total: ฿${Object.values(ordersBySeller).flat().reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0)})`]
-            );
+            try {
+                await connection.execute(
+                    'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
+                    [user_id, 'Order Placed', `Placed an order for ${items.length} items (Total: ฿${Object.values(ordersBySeller).flat().reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0)})`]
+                );
+            } catch (logError: any) {
+                if (logError.code === 'ER_NO_SUCH_TABLE') {
+                    await connection.execute(`
+                        CREATE TABLE activity_logs (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            user_id INT,
+                            action VARCHAR(255) NOT NULL,
+                            details TEXT,
+                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+                        )
+                    `);
+                    await connection.execute(
+                        'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
+                        [user_id, 'Order Placed', `Placed an order for ${items.length} items (Total: ฿${Object.values(ordersBySeller).flat().reduce((sum: number, item: any) => sum + (item.price * item.quantity), 0)})`]
+                    );
+                }
+            }
 
             await connection.commit();
             return NextResponse.json({ success: true, orderIds });

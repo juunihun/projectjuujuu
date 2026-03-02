@@ -22,11 +22,34 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
         }
 
-        // Log the activity
-        await pool.execute(
-            'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
-            [user.id, 'Sign In', 'User logged into the system']
-        );
+        // Log the activity with fallback for missing table
+        try {
+            await pool.execute(
+                'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
+                [user.id, 'Sign In', 'User logged into the system']
+            );
+        } catch (logError: any) {
+            if (logError.code === 'ER_NO_SUCH_TABLE') {
+                // Auto-create table on the remote server without dropping data
+                await pool.execute(`
+                    CREATE TABLE activity_logs (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        user_id INT,
+                        action VARCHAR(255) NOT NULL,
+                        details TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+                    )
+                `);
+                // Retry insert
+                await pool.execute(
+                    'INSERT INTO activity_logs (user_id, action, details) VALUES (?, ?, ?)',
+                    [user.id, 'Sign In', 'User logged into the system']
+                );
+            } else {
+                console.error("Failed to insert activity log:", logError);
+            }
+        }
 
         // Return user info (excluding password)
         return NextResponse.json({
