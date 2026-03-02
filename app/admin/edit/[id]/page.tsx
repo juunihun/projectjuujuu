@@ -53,7 +53,7 @@ export default function EditProductPage() {
 
                 <div className="flex justify-center mb-6">
                     <div className="w-32 h-32 relative border rounded-sm overflow-hidden">
-                        <Image src={product.images && product.images[0] ? product.images[0] : "https://picsum.photos/200"} alt={product.title} fill className="object-cover" />
+                        <img src={product.images && product.images[0] ? product.images[0] : "https://picsum.photos/200"} alt={product.title} className="w-full h-full object-cover" />
                     </div>
                 </div>
 

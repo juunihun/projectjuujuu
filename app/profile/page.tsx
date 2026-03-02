@@ -465,7 +465,7 @@ function ProfileContent() {
                                                     <div key={i} className="flex gap-4 mb-4 last:mb-0">
                                                         <div className="w-16 h-16 bg-gray-100 rounded-sm relative overflow-hidden flex-shrink-0">
                                                             {item.images && item.images.length > 0 && (
-                                                                <Image src={item.images[0]} alt={item.title} fill className="object-cover" />
+                                                                <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />
                                                             )}
                                                         </div>
                                                         <div className="flex-1">
@@ -670,7 +670,7 @@ function ProfileContent() {
                                             <div key={p.id} className="flex items-center gap-4 p-4 border rounded-xl bg-white shadow-sm hover:shadow-md transition-all group">
                                                 <div className="w-20 h-20 bg-gray-100 rounded-lg relative overflow-hidden flex-shrink-0 border">
                                                     {p.images && p.images.length > 0 ? (
-                                                        <Image src={p.images[0]} alt={p.title} fill className="object-cover group-hover:scale-105 transition-transform" />
+                                                        <img src={p.images[0]} alt={p.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                                                     ) : (
                                                         <div className="flex items-center justify-center h-full text-gray-400"><Package /></div>
                                                     )}
@@ -792,7 +792,7 @@ function ProfileContent() {
                                                     {order.items.map((item, i) => (
                                                         <div key={i} className="flex gap-4 p-2 hover:bg-gray-50 rounded-lg transition-colors">
                                                             <div className="w-16 h-16 bg-gray-100 rounded-md relative overflow-hidden flex-shrink-0 border">
-                                                                {item.images && item.images.length > 0 && <Image src={item.images[0]} alt={item.title} fill className="object-cover" />}
+                                                                {item.images && item.images.length > 0 && <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />}
                                                             </div>
                                                             <div className="flex-1">
                                                                 <div className="font-medium text-gray-900">{item.title}</div>

@@ -107,7 +107,7 @@ export default function ProductDetailPage() {
                     {/* Image Section */}
                     <div className="col-span-1 md:col-span-5">
                         <div className="relative aspect-square w-full border rounded-sm overflow-hidden mb-4 bg-gray-100 group">
-                            {activeImage && <Image src={activeImage} alt={product.title} fill className="object-cover transition-all duration-500 ease-in-out" />}
+                            {activeImage && <img src={activeImage} alt={product.title} className="w-full h-full object-cover transition-all duration-500 ease-in-out" />}
 
                             {/* Arrows */}
                             {product.images.length > 1 && (
@@ -129,7 +129,7 @@ export default function ProductDetailPage() {
                                     onClick={() => setImageIndex(i)}
                                     className={`w-20 h-20 relative border cursor-pointer hover:border-primary shrink-0 transition-all ${imageIndex === i ? 'border-primary ring-2 ring-primary/20' : ''}`}
                                 >
-                                    <Image src={url} alt={`thumbnail-${i}`} fill className="object-cover" />
+                                    <img src={url} alt={`thumbnail-${i}`} className="w-full h-full object-cover" />
                                 </div>
                             ))}
                         </div>

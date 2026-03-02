@@ -158,7 +158,7 @@ export default function AdminPage() {
                                         <tr key={p.id} className="hover:bg-gray-50">
                                             <td className="p-4 flex gap-4 items-center">
                                                 <div className="w-12 h-12 relative border rounded-sm overflow-hidden flex-shrink-0">
-                                                    <Image src={p.images && p.images[0] ? p.images[0] : "https://picsum.photos/200"} alt={p.title} fill className="object-cover" />
+                                                    <img src={p.images && p.images[0] ? p.images[0] : "https://picsum.photos/200"} alt={p.title} className="w-full h-full object-cover" />
                                                 </div>
                                                 <div className="font-medium line-clamp-2 max-w-[200px]">{p.title}</div>
                                             </td>
@@ -233,7 +233,7 @@ export default function AdminPage() {
                                     {order.items.map((item, idx) => (
                                         <div key={idx} className="flex gap-4 items-center">
                                             <div className="w-10 h-10 relative border rounded-sm overflow-hidden flex-shrink-0">
-                                                <Image src={item.images[0]} alt={item.title} fill className="object-cover" />
+                                                <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />
                                             </div>
                                             <div className="flex-1 text-sm">{item.title}</div>
                                             <div className="text-sm">x{item.quantity}</div>

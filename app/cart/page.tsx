@@ -96,7 +96,7 @@ export default function CartPage() {
                             <div className="hidden md:grid grid-cols-12 gap-4 items-center">
                                 <div className="col-span-6 flex gap-4 items-center">
                                     <div className="relative w-20 h-20 border rounded-lg overflow-hidden shrink-0">
-                                        <Image src={item.images[0]} alt={item.title} fill className="object-cover" />
+                                        <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />
                                     </div>
                                     <div className="line-clamp-2 font-medium text-brand-navy">{item.title}</div>
                                 </div>
@@ -115,7 +115,7 @@ export default function CartPage() {
                             {/* Mobile View */}
                             <div className="md:hidden flex gap-3">
                                 <div className="relative w-20 h-20 border rounded-lg overflow-hidden shrink-0">
-                                    <Image src={item.images[0]} alt={item.title} fill className="object-cover" />
+                                    <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover" />
                                 </div>
                                 <div className="flex-1 flex flex-col justify-between py-0.5">
                                     <div>

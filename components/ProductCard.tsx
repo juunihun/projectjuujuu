@@ -16,11 +16,10 @@ export function ProductCard(product: Product) {
         <div className="bg-white border border-gray-100 hover:border-primary/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-xl overflow-hidden flex flex-col group relative">
             <Link href={`/product/${id}`}>
                 <div className="relative aspect-square w-full bg-gray-50 overflow-hidden">
-                    <Image
+                    <img
                         src={mainImage}
                         alt={title || "Product Image"}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-in-out"
                     />
                     {/* sold badge logic could go here if needed later */}
                 </div>
